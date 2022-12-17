@@ -2,7 +2,7 @@ EXEC=bin/ballers
 
 CC=g++
 
-RESOURCES=main displayator vector ball
+RESOURCES=main displayator vector ball linkedlistball
 
 CFLAGS=-std=c++17 -Wall -Wextra
 LFLAGS=-Iinclude
@@ -21,5 +21,5 @@ $(EXEC): $(addprefix obj/, $(addsuffix .o, $(RESOURCES)))
 	$(CC) $(CFLAGS) $(LFLAGS) $(LFLAGS-SDL) $^ -o $@
 
 clean:
-	rm $(EXEC)
 	rm obj/*
+	rm $(EXEC)

@@ -2,7 +2,7 @@
 #define __BALL_H__
 
 #include "vector.h"
-#include "linkedlist.h"
+// #include "LinkedListBall.h"
 
 #define MIN_RADIUS 32
 #define MAX_RADIUS 48
@@ -17,7 +17,5 @@ struct Ball {
     void update();
     void applyCollisionsAndBounce(int bound_width, int bound_height);
 };
-
-typedef LinkedList<Ball*> BallCollection;
 
 #endif
