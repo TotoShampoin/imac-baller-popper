@@ -1,5 +1,5 @@
 #include "displayator.h"
-#include "ball->h"
+#include "ball.h"
 
 #include "mymath.h"
 #include <ctime>
