@@ -11,6 +11,7 @@ struct Ball {
     Vec2 position, speed;
     int radius;
     unsigned int color = 0xFFFFFFFF;
+    bool marked = false;
 
     Ball(float max_speed = 4);
 

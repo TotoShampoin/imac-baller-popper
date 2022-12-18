@@ -17,7 +17,7 @@ struct Displayator {
     void clear();
     void refresh();
 
-    void circle(int x, int y, int r, Uint32 color);
+    void circle(int x, int y, int r, Uint32 color, bool fill = false);
 };
 
 #endif

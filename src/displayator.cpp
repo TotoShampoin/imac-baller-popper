@@ -30,8 +30,12 @@ void Displayator::refresh() {
     SDL_RenderPresent(this->renderer);
 }
 
-void Displayator::circle(int x, int y, int r, Uint32 color) {
-    for(int i = 0; i < 3; i++) {
-        circleColor(this->renderer, x, y, r + i, color);
+void Displayator::circle(int x, int y, int r, Uint32 color, bool fill) {
+    if(fill) {
+        filledCircleColor(this->renderer, x, y, r + 2, color);
+    } else {
+        for(int i = 0; i < 3; i++) {
+            circleColor(this->renderer, x, y, r + i, color);
+        }
     }
 }
