@@ -15,7 +15,7 @@ struct Vec2 {
     
     bool operator==(Vec2&);
 
-    float magnitude();
+    float magnitude2();
 };
 
 #endif

@@ -44,6 +44,6 @@ bool Vec2::operator==(Vec2& other) {
             this->y == other.y;
 }
 
-float Vec2::magnitude() {
+float Vec2::magnitude2() {
     return x * x + y * y;
 }
