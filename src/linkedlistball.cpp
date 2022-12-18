@@ -20,21 +20,23 @@ Ball* LLBall::shift(LLBall** L) {
     LLBall* node = *L;
     Ball* value = node->value;
     *L = node->next;
+    node->next = nullptr;
     delete node;
     return value;
 }
 
 LLBall* LLBall::filterOut(LLBall** L, bool f(Ball*, void*), void* p) {
-    LLBall* scanner = *L;
+    LLBall** scanner = L;
     LLBall* extracted_list = nullptr;
     bool is_valid;
-    while(scanner) {
-        is_valid = f(scanner->value, p);
+    while(*scanner) {
+        is_valid = f((*scanner)->value, p);
         if(!is_valid) {
-            Ball* extract = LLBall::shift(&scanner);
+            Ball* extract = LLBall::shift(scanner);
             LLBall::add(&extracted_list, extract);
+        } else {
+            scanner = &(*scanner)->next;
         }
-        scanner = scanner->next;
     }
     return extracted_list;
 }
