@@ -19,6 +19,7 @@ obj/displayator.o: src/displayator.cpp
 # 			obj/$(RESOURCES).o
 $(EXEC): $(addprefix obj/, $(addsuffix .o, $(RESOURCES)))
 	$(CC) $(CFLAGS) $(LFLAGS) $(LFLAGS-SDL) $^ -o $@
+	cp -r assets bin/assets
 
 clean:
 	rm obj/*
