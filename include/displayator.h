@@ -11,13 +11,16 @@ struct Displayator {
     SDL_Window* window;
     SDL_Renderer* renderer;
     SDL_Surface* screen;
+    TTF_Font* font;
+
     Displayator(int width, int height);
     ~Displayator();
 
     void clear();
     void refresh();
 
-    void circle(int x, int y, int r, Uint32 color, bool fill = false);
+    void circle(int x, int y, int r, Uint32 color);
+    void text(int x, int y, const char* text, Uint32 color = 0xFFFFFFFF);
 };
 
 #endif

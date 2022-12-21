@@ -14,9 +14,13 @@ Displayator::Displayator(int w, int h) {
         SDL_RENDERER_ACCELERATED
     );
     SDL_assert(this->renderer);
+    SDL_assert(TTF_Init() == 0);
+    this->font = TTF_OpenFont("assets/font.ttf", 32);
+    SDL_assert(this->font);
 }
 
 Displayator::~Displayator() {
+    TTF_CloseFont(this->font);
     SDL_DestroyRenderer(this->renderer);
     SDL_DestroyWindow(this->window);
 }
@@ -30,12 +34,26 @@ void Displayator::refresh() {
     SDL_RenderPresent(this->renderer);
 }
 
-void Displayator::circle(int x, int y, int r, Uint32 color, bool fill) {
-    if(fill) {
-        filledCircleColor(this->renderer, x, y, r + 2, color);
-    } else {
-        for(int i = 0; i < 3; i++) {
-            circleColor(this->renderer, x, y, r + i, color);
-        }
-    }
+void Displayator::circle(int x, int y, int r, Uint32 color) {
+    filledCircleColor(this->renderer, x, y, r, 0xFE000000 + color);
+    circleColor(this->renderer, x, y, r - 1, 0x55FFFFFF);
+}
+
+void Displayator::text(int x, int y, const char* text, Uint32 color) {
+    SDL_Color clr = {
+        .r = (Uint32)(color >>  0),
+        .g = (Uint32)(color >>  8),
+        .b = (Uint32)(color >> 16),
+        .a = 0xFF,
+    };
+    SDL_Surface* text_surface = TTF_RenderText_Blended(this->font, text, clr);
+    SDL_Texture* render = SDL_CreateTextureFromSurface(this->renderer, text_surface);
+    SDL_Rect position = {
+        .x = x, .y = y,
+        .w = text_surface->w,
+        .h = text_surface->h
+    };
+    SDL_RenderCopy(this->renderer, render, NULL, &position);
+    SDL_DestroyTexture(render);
+    SDL_FreeSurface(text_surface);
 }
