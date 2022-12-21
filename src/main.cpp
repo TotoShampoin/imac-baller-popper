@@ -73,11 +73,7 @@ int main(int argc, const char* argv[]) {
     cont = true;
     balls = new BallCollection;
     for(int i = 0; i < 16; i++) {
-        auto ball = new Ball;
-        ball->position.x = randint(ball->radius, WIDTH - ball->radius);
-        ball->position.y = randint(ball->radius, HEIGHT - ball->radius);
-        ball->color = 0xFF000000 + randint(0x000000, 0xFFFFFF);
-        balls->add(ball);
+        balls->add(new Ball(WIDTH, HEIGHT));
     }
 
     while(cont) {
@@ -89,6 +85,9 @@ int main(int argc, const char* argv[]) {
         indx = 0;
         if(mouse.click) {
             BallCollection* removed = balls->filterOut(ballContact, (void*)&mouse.position);
+            if(removed->length == 0) {
+                balls->add(new Ball(WIDTH, HEIGHT));
+            }
             delete removed;
         }
 
