@@ -3,14 +3,15 @@
 #include "mymath.h"
 #include <cmath>
 
-Ball::Ball(float max_speed) {
+Ball::Ball(int screen_width, int screen_height) {
     float angle = ((float)rand()/0x7FFFFFFF) * M_PI * 2;
-    float speed = ((float)rand()/0x7FFFFFFF) * max_speed;
-    this->position.x = 0;
-    this->position.y = 0;
+    float speed = ((float)rand()/0x7FFFFFFF) * MAX_SPEED;
+    this->radius = randint(MIN_RADIUS, MAX_RADIUS);
+    this->position.x = randint(this->radius, screen_width - this->radius);
+    this->position.y = randint(this->radius, screen_height - this->radius);
     this->speed.x = cos(angle) * speed;
     this->speed.y = sin(angle) * speed;
-    this->radius = randint(MIN_RADIUS, MAX_RADIUS);
+    this->color = 0xFF000000 + randint(0x000000, 0xFFFFFF);
 }
 
 void Ball::update() {
