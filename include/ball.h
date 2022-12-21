@@ -13,9 +13,8 @@ struct Ball {
     Vec2 position, speed;
     int radius;
     unsigned int color = 0xFFFFFFFF;
-    bool marked = false;
 
-    Ball(int screen_width, int screen_height);
+    Ball(int screen_width, int screen_height, int color = 0xFFFFFF);
 
     void update();
     void applyCollisionsAndBounce(int bound_width, int bound_height);
