@@ -35,8 +35,11 @@ void Displayator::refresh() {
 }
 
 void Displayator::circle(int x, int y, int r, Uint32 color) {
-    filledCircleColor(this->renderer, x, y, r, 0xFE000000 + color);
+    filledCircleColor(this->renderer, x, y, r, 0xAA000000 + color);
     circleColor(this->renderer, x, y, r - 1, 0x55FFFFFF);
+}
+void Displayator::line(int x0, int y0, int x1, int y1, Uint32 color) {
+    lineColor(this->renderer, x0, y0, x1, y1, 0xFF000000 + color);
 }
 
 void Displayator::text(int x, int y, const char* text, Uint32 color) {
