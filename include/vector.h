@@ -8,14 +8,23 @@ struct Vec2 {
     Vec2 operator+(Vec2&);
     Vec2 operator-(Vec2&);
     Vec2 operator*(float);
+    Vec2 operator/(float);
     
     Vec2& operator+=(Vec2&);
     Vec2& operator-=(Vec2&);
     Vec2& operator*=(float);
+    Vec2& operator/=(float);
     
     bool operator==(Vec2&);
 
+    Vec2 cmpMul(Vec2&);
+
     float magnitude2();
+    float magnitude();
+    float angle();
+    Vec2 norm();
+
+static Vec2 fromAngle(float);
 };
 
 #endif

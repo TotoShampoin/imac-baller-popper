@@ -1,4 +1,5 @@
 #include "vector.h"
+#include <cmath>
 
 Vec2 Vec2::operator-() {
     return Vec2 { -x, -y };
@@ -18,8 +19,14 @@ Vec2 Vec2::operator-(Vec2& other) {
 }
 Vec2 Vec2::operator*(float other) {
     return Vec2 {
-        this->x - other,
-        this->y - other,
+        this->x * other,
+        this->y * other,
+    };
+}
+Vec2 Vec2::operator/(float other) {
+    return Vec2 {
+        this->x / other,
+        this->y / other,
     };
 }
 
@@ -38,12 +45,43 @@ Vec2& Vec2::operator*=(float other) {
     this->y *= other;
     return *this;
 }
+Vec2& Vec2::operator/=(float other) {
+    this->x /= other;
+    this->y /= other;
+    return *this;
+}
 
 bool Vec2::operator==(Vec2& other) {
     return  this->x == other.x &&
             this->y == other.y;
 }
 
+Vec2 Vec2::cmpMul(Vec2& other) {
+    return Vec2 {
+        .x = this->x * other.x - this->y * other.y,
+        .y = this->x * other.y + this->y * other.x,
+    };
+}
+
 float Vec2::magnitude2() {
     return x * x + y * y;
+}
+
+float Vec2::magnitude() {
+    return sqrtf(magnitude2());
+}
+
+float Vec2::angle() {
+    return atan2f(y, x);
+}
+
+Vec2 Vec2::norm() {
+    return *this / this->magnitude();
+}
+
+Vec2 Vec2::fromAngle(float angle) {
+    return Vec2 {
+        .x = cosf(angle),
+        .y = sinf(angle),
+    };
 }
