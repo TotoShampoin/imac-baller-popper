@@ -2,7 +2,7 @@ EXEC=bin/ballers
 
 CC=g++
 
-RESOURCES=main displayator vector ball linkedlistball
+RESOURCES=main displayator vector ball linkedlistball wall
 
 CFLAGS=-std=c++17 -Wall -Wextra -g
 LFLAGS=-Iinclude
