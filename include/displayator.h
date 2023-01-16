@@ -20,6 +20,7 @@ struct Displayator {
     void refresh();
 
     void circle(int x, int y, int r, Uint32 color);
+    void line(int x0, int y0, int x1, int y1, Uint32 color);
     void text(int x, int y, const char* text, Uint32 color = 0xFFFFFFFF);
 };
 
