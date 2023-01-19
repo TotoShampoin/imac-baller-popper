@@ -9,8 +9,11 @@ struct Wall {
 
     Vec2 getDirection();
 
+    bool detectLineCollision(Ball*);
     bool detectCollision(Ball*);
-    void redirect(Ball*);
+    Vec2 impact(Vec2&);
+    Vec2 normal(Vec2&);
+    void bounce(Ball*);
 
     void bounceMechanics(Ball*);
 };
