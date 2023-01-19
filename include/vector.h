@@ -17,7 +17,8 @@ struct Vec2 {
     
     bool operator==(Vec2&);
 
-    Vec2 cmpMul(Vec2&);
+    Vec2 cmpProd(Vec2&);
+    float dotProd(Vec2&);
 
     float magnitude2();
     float magnitude();

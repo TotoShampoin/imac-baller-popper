@@ -56,11 +56,14 @@ bool Vec2::operator==(Vec2& other) {
             this->y == other.y;
 }
 
-Vec2 Vec2::cmpMul(Vec2& other) {
+Vec2 Vec2::cmpProd(Vec2& other) {
     return Vec2 {
         .x = this->x * other.x - this->y * other.y,
         .y = this->x * other.y + this->y * other.x,
     };
+}
+float Vec2::dotProd(Vec2& other) {
+    return this->x * other.x + this->y * other.y;
 }
 
 float Vec2::magnitude2() {
