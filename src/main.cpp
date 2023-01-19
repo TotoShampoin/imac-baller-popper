@@ -25,7 +25,7 @@ int main(int argc, const char* argv[]) {
     }
     for(int i = 0; i < maxwall; i++) {
         (*walls)[i].pA = {120, 240};
-        (*walls)[i].pB = {160, 620};
+        (*walls)[i].pB = {720, 620};
     }
 
     // Game loop
