@@ -1,0 +1,12 @@
+WALLS nb_walls
+x0 y0  x1 y1
+x0 y0  x1 y1
+x0 y0  x1 y1
+...
+
+BALLS nb_balls
+px py  sx sy  radius  color_number
+px py  sx sy  radius  color_number
+px py  sx sy  radius  color_number
+px py  sx sy  radius  color_number
+...
