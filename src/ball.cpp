@@ -14,6 +14,13 @@ Ball::Ball(int screen_width, int screen_height, int color) {
     this->color = color;
 }
 
+Ball::Ball(Vec2 position, Vec2 speed, int r, int c) {
+    this->radius = r;
+    this->position = position;
+    this->speed = speed;
+    this->color = c;
+}
+
 void Ball::update() {
     this->position += this->speed;
 }

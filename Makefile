@@ -2,7 +2,7 @@ EXEC=bin/ballers
 
 CC=g++
 
-RESOURCES=main displayator vector ball linkedlistball wall SDL2_gfxPrimitives
+RESOURCES=main displayator vector ball linkedlistball wall level SDL2_gfxPrimitives
 
 CFLAGS=-std=c++17 -Wall -Wextra -g
 LFLAGS=-Iinclude
@@ -14,11 +14,14 @@ obj/%.o: src/%.cpp
 	mkdir -p obj
 	$(CC) $(CFLAGS) -c $^ -o $@ $(LFLAGS)
 
+obj/SDL2_gfxPrimitives.o: src/SDL2_gfxPrimitives.c
+	$(CC) $(CFLAGS) -c $^ -o $@ $(LFLAGS)
+
 # 			obj/$(RESOURCES).o
 $(EXEC): $(addprefix obj/, $(addsuffix .o, $(RESOURCES)))
 	mkdir -p bin
 	$(CC) $(CFLAGS) $^ -o $@ $(LFLAGS) $(LFLAGS-SDL)
-	cp -r assets bin/assets
+	cp -r assets bin/
 
 clean:
 	rm obj/*
