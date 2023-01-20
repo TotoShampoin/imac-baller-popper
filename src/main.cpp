@@ -4,20 +4,21 @@
 #define WIDTH 480
 #define HEIGHT 360
 
+void menu() {}
+
 int main(int argc, const char* argv[]) {
     // Variables
     bool cont;
     Displayator* disp;
     Level* level;
     MouseData mouse;
-    int maxball, maxwall;
+    float scale;
 
     // Initialisation
     srand(time(NULL));
-    maxball = 16;
-    maxwall = 1;
-    disp = new Displayator { WIDTH , HEIGHT , 2 };
-    level = new Level("assets/levels/lvl_000.ball");
+    scale = (argc == 1) ? 1 : stof(argv[1]);
+    disp = new Displayator { WIDTH , HEIGHT , scale };
+    level = new Level("assets/levels/lvl_001.ball");
 
     // Game loop
     cont = true;
@@ -76,6 +77,8 @@ void ballPhysics(Ball* ball, void* _walls) {
 
 void ballGraphics(Ball* ball, void* _disp) {
     Displayator* disp = (Displayator*)_disp;
+    if(ball->is_dead) {
+    }
     disp->circle(
         ball->position.x,
         ball->position.y,
