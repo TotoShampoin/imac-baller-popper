@@ -4,10 +4,10 @@
 #include "vector.h"
 // #include "LinkedListBall.h"
 
-#define MIN_RADIUS 32
-#define MAX_RADIUS 48
+#define MIN_RADIUS 16
+#define MAX_RADIUS 24
 
-#define MAX_SPEED 4
+#define MAX_SPEED 2
 
 struct Ball {
     Vec2 position, speed;
@@ -16,6 +16,7 @@ struct Ball {
     bool marked = false;
 
     Ball(int screen_width, int screen_height, int color = 0xFFFFFF);
+    Ball(Vec2 position, Vec2 speed, int r, int c);
 
     void update();
     void applyCollisionsAndBounce(int bound_width, int bound_height);

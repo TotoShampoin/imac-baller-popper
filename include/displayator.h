@@ -6,14 +6,22 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mixer.h>
 #include "SDL2_gfxPrimitives.h"
+#include "vector.h"
+
+struct MouseData {
+    Vec2 position;
+    bool click = false;
+    bool is_down = false;
+};
 
 struct Displayator {
     SDL_Window* window;
     SDL_Renderer* renderer;
     SDL_Surface* screen;
     TTF_Font* font;
+    float scale;
 
-    Displayator(int width, int height);
+    Displayator(int width, int height, float scale = 1);
     ~Displayator();
 
     void clear();
@@ -22,6 +30,8 @@ struct Displayator {
     void circle(int x, int y, int r, Uint32 color);
     void line(int x0, int y0, int x1, int y1, Uint32 color);
     void text(int x, int y, const char* text, Uint32 color = 0xFFFFFFFF);
+
+    void getMouse(MouseData*);
 };
 
 #endif

@@ -1,55 +1,46 @@
 #include "main.h"
+#include "level.h"
+
+#define WIDTH 480
+#define HEIGHT 360
 
 int main(int argc, const char* argv[]) {
     // Variables
     bool cont;
     Displayator* disp;
-    BallCollection* balls;
-    WallCollection* walls;
+    Level* level;
     MouseData mouse;
-    int maxball;
-    int maxwall;
+    int maxball, maxwall;
 
     // Initialisation
     srand(time(NULL));
-    maxball = (argc == 1) ? 16 : argc - 1;
+    maxball = 16;
     maxwall = 1;
-    disp = new Displayator { WIDTH , HEIGHT };
-    balls = new BallCollection;
-    walls = new WallCollection(maxwall);
-    for(int i = 0; i < maxball; i++) {
-        int color = (argc == 1) 
-            ? randint(0x000000, 0xFFFFFF) 
-            : std::stoi(argv[i + 1], 0, 16);
-        balls->add(new Ball(WIDTH, HEIGHT, color));
-    }
-    for(int i = 0; i < maxwall; i++) {
-        (*walls)[i].pA = {120, 240};
-        (*walls)[i].pB = {720, 620};
-    }
+    disp = new Displayator { WIDTH , HEIGHT , 2 };
+    level = new Level("assets/levels/lvl_000.ball");
 
     // Game loop
     cont = true;
     while(cont) {
         // Input
-        event(&cont, &mouse);
+        event(&cont, &mouse, disp);
 
         // Physics
-        balls->forEach(ballPhysics, walls);
+        level->balls->forEach(ballPhysics, level->walls);
         if(mouse.click) {
-            BallCollection* removed = balls->filterOut(ballContact, (void*)&mouse.position);
+            BallCollection* removed = level->balls->filterOut(ballContact, (void*)&mouse.position);
             if(removed->length == 0) {
                 int color = randint(0x000000, 0xFFFFFF);
-                balls->add(new Ball(WIDTH, HEIGHT, color));
+                level->balls->add(new Ball(WIDTH, HEIGHT, color));
             }
             delete removed;
         }
 
         // Graphics
         disp->clear();
-        balls->forEach(ballGraphics, disp);
-        walls->forEach(wallGraphics, disp);
-        disp->text(16, 16, to_string(balls->length).c_str());
+        level->balls->forEach(ballGraphics, disp);
+        level->walls->forEach(wallGraphics, disp);
+        disp->text(16, 16, to_string(level->balls->length).c_str());
         disp->refresh();
 
         // SDL_Delay(1000/60);
@@ -57,15 +48,12 @@ int main(int argc, const char* argv[]) {
 
     // Delete
     delete disp;
-    delete balls;
-    delete walls;
+    delete level;
     return 0;
 }
 
 
-void event(bool* cont, MouseData* mouse) {
-    int mx, my, mc;
-    bool was_down = mouse->is_down;
+void event(bool* cont, MouseData* mouse, Displayator* D) {
     SDL_Event event_handler;
     SDL_PollEvent(&event_handler);
     switch (event_handler.type){
@@ -76,15 +64,7 @@ void event(bool* cont, MouseData* mouse) {
         SDL_PumpEvents();
         break;
     }
-    mc = SDL_GetMouseState(&mx, &my);
-    mouse->is_down = SDL_BUTTON(mc) == SDL_BUTTON_LEFT;
-    if(mouse->is_down) {
-        mouse->click = !was_down;
-    } else {
-        mouse->click = false;
-    }
-    mouse->position.x = mx;
-    mouse->position.y = my;
+    D->getMouse(mouse);
 }
 
 void ballPhysics(Ball* ball, void* _walls) {
