@@ -14,6 +14,8 @@ struct Ball {
     int radius;
     unsigned int color = 0xFFFFFFFF;
     bool marked = false;
+    bool is_dead = false;
+    int death_animation = 0;
 
     Ball(int screen_width, int screen_height, int color = 0xFFFFFF);
     Ball(Vec2 position, Vec2 speed, int r, int c);
