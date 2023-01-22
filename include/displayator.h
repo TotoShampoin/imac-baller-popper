@@ -8,6 +8,8 @@
 #include "SDL2_gfxPrimitives.h"
 #include "vector.h"
 
+#define DEFAULT_FONT_SIZE 32
+
 struct MouseData {
     Vec2 position;
     bool click = false;
@@ -19,19 +21,26 @@ struct Displayator {
     SDL_Renderer* renderer;
     SDL_Surface* screen;
     TTF_Font* font;
+    int width, height;
     float scale;
 
     Displayator(int width, int height, float scale = 1);
     ~Displayator();
 
+    void changeScale(float scale);
+
     void clear();
     void refresh();
 
-    void circle(int x, int y, int r, Uint32 color);
+    void circle(int x, int y, int r, Uint32 color, bool filled = true);
     void line(int x0, int y0, int x1, int y1, Uint32 color);
-    void text(int x, int y, const char* text, Uint32 color = 0xFFFFFFFF);
+    void rect(int x, int y, int w, int h, Uint32 color, bool filled = true);
+    void text(const char* text, int x, int y, Uint32 color = 0xFFFFFFFF, int size = DEFAULT_FONT_SIZE);
+
+    void image(SDL_Surface* img, int x, int y);
 
     void getMouse(MouseData*);
+    void event(bool*, MouseData*);
 };
 
 #endif

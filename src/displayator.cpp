@@ -2,8 +2,10 @@
 #include <SDL2/SDL_assert.h>
 
 Displayator::Displayator(int w, int h, float s) {
-    this->scale = s;
     SDL_assert(SDL_Init(SDL_INIT_EVERYTHING) == 0);
+    this->width = w;
+    this->height = h;
+    this->scale = s;
     this->window = SDL_CreateWindow("Ballers", 
         SDL_WINDOWPOS_UNDEFINED,
         SDL_WINDOWPOS_UNDEFINED,
@@ -17,7 +19,7 @@ Displayator::Displayator(int w, int h, float s) {
     );
     SDL_assert(this->renderer);
     SDL_assert(TTF_Init() == 0);
-    this->font = TTF_OpenFont("assets/font.ttf", 32 * s);
+    this->font = TTF_OpenFont("assets/font.ttf", DEFAULT_FONT_SIZE * s);
     SDL_assert(this->font);
 }
 
@@ -25,6 +27,12 @@ Displayator::~Displayator() {
     TTF_CloseFont(this->font);
     SDL_DestroyRenderer(this->renderer);
     SDL_DestroyWindow(this->window);
+}
+
+void Displayator::changeScale(float s) {
+    this->scale = s;
+    if(!this->window) return;
+    SDL_SetWindowSize(this->window, this->width * s, this->height * s);
 }
 
 void Displayator::clear() {
@@ -36,45 +44,72 @@ void Displayator::refresh() {
     SDL_RenderPresent(this->renderer);
 }
 
-void Displayator::circle(int x, int y, int r, Uint32 color) {
+void Displayator::circle(int x, int y, int r, Uint32 color, bool filled) {
     int X = x * this->scale,
         Y = y * this->scale,
         R = r * this->scale;
-    filledCircleColor(this->renderer, X, Y, R, 0xAA000000 + color);
-    circleColor(this->renderer, X, Y, R - 1, 0x55FFFFFF);
+    if(filled)
+        filledCircleColor(this->renderer, X, Y, R, color);
+    else
+        circleColor(this->renderer, X, Y, R, color);
 }
+
 void Displayator::line(int x0, int y0, int x1, int y1, Uint32 color) {
     int X0 = x0 * this->scale,
         Y0 = y0 * this->scale,
         X1 = x1 * this->scale,
         Y1 = y1 * this->scale;
-    lineColor(this->renderer, X0, Y0, X1, Y1, 0xFF000000 + color);
+    lineColor(this->renderer, X0, Y0, X1, Y1, color);
 }
 
-void Displayator::text(int x, int y, const char* text, Uint32 color) {
+void Displayator::rect(int x, int y, int w, int h, Uint32 color, bool filled) {
+    int X = x * this->scale,
+        Y = y * this->scale,
+        W = w * this->scale,
+        H = h * this->scale;
+    if(filled) {
+        SDL_Color clr = {
+            .r = (Uint32)(color >>  0),
+            .g = (Uint32)(color >>  8),
+            .b = (Uint32)(color >> 16),
+            .a = (Uint32)(color >> 24),
+        };
+        SDL_SetRenderDrawColor(this->renderer, clr.r, clr.g, clr.b, clr.a);
+        SDL_Rect rect { X, Y, W, H };
+        SDL_RenderFillRect(this->renderer, &rect);
+    } else {
+        rectangleColor(this->renderer, X, Y, W, H, color);
+    }
+}
+
+void Displayator::text(const char* text, int x, int y, Uint32 color, int size) {
+    TTF_SetFontSize(this->font, size * this->scale);
     SDL_Color clr = {
         .r = (Uint32)(color >>  0),
         .g = (Uint32)(color >>  8),
         .b = (Uint32)(color >> 16),
-        .a = 0xFF,
+        .a = (Uint32)(color >> 24),
     };
     SDL_Surface* text_surface = TTF_RenderText_Blended(this->font, text, clr);
-    SDL_Texture* render = SDL_CreateTextureFromSurface(this->renderer, text_surface);
+    this->image(text_surface, x, y);
+    SDL_FreeSurface(text_surface);
+}
+
+void Displayator::image(SDL_Surface* img, int x, int y) {
+    SDL_Texture* render = SDL_CreateTextureFromSurface(this->renderer, img);
     SDL_Rect position = {
         .x = x * this->scale, .y = y * this->scale,
-        .w = text_surface->w,
-        .h = text_surface->h
+        .w = img->w, .h = img->h
     };
     SDL_RenderCopy(this->renderer, render, NULL, &position);
     SDL_DestroyTexture(render);
-    SDL_FreeSurface(text_surface);
 }
 
 void Displayator::getMouse(MouseData* mouse) {
     int mx, my, mc;
     bool was_down = mouse->is_down;
     mc = SDL_GetMouseState(&mx, &my);
-    mouse->is_down = SDL_BUTTON(mc) == SDL_BUTTON_LEFT;
+    mouse->is_down = (SDL_BUTTON(mc) == SDL_BUTTON_LEFT);
     if(mouse->is_down) {
         mouse->click = !was_down;
     } else {
@@ -82,4 +117,18 @@ void Displayator::getMouse(MouseData* mouse) {
     }
     mouse->position.x = mx / this->scale;
     mouse->position.y = my / this->scale;
+}
+
+void Displayator::event(bool* cont, MouseData* mouse) {
+    SDL_Event event_handler;
+    SDL_PollEvent(&event_handler);
+    switch (event_handler.type){
+    case SDL_QUIT:
+        *cont = false;
+        break;
+    default:
+        SDL_PumpEvents();
+        break;
+    }
+    this->getMouse(mouse);
 }
