@@ -1,4 +1,5 @@
 #include "level.h"
+#include "string_manip.h"
 #include <SDL2/SDL.h>
 using namespace std;
 
@@ -16,6 +17,35 @@ float readNextNumber(fstream* file) {
         }
     } while(!file->eof());
     return number;
+}
+
+SaveState loadState(std::string level_name) {
+    try {
+        fstream file;
+        string file_name = string(DIR_SAVE) + level_name;
+        replace(&file_name, ".ball", ".sav");
+        file.open(file_name, ios::in);
+        SaveState state = {
+            string(level_name)
+        };
+        file >> state.nb_clicks >> state.nb_success >> state.score;
+        file.close();
+        return state;
+    }
+    catch(const std::exception& e) {
+        return SaveState {
+            string(level_name),
+            0, 0, 0
+        };
+    }
+}
+void saveState(SaveState* state) {
+    fstream file;
+    string file_name = string(DIR_SAVE) + state->level_path;
+    replace(&file_name, ".ball", ".sav");
+    file.open(file_name, ios::out | ios::trunc);
+    file << state->nb_clicks << " " << state->nb_success << " " << state->score;
+    file.close();
 }
 
 Level::Level(const char* path) {
