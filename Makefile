@@ -25,5 +25,5 @@ $(EXEC): $(addprefix obj/, $(addsuffix .o, $(RESOURCES)))
 	cp -r assets bin/
 
 clean:
-	rm obj/*
-	rm $(EXEC)
+	rm -r obj
+	rm -r bin
