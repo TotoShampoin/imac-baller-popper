@@ -8,7 +8,6 @@
 #include <iostream>
 using namespace std;
 
-void event(bool* cont, MouseData* mouse, Displayator* D);
 void ballPhysics(Ball* ball, void* = nullptr);
 void ballGraphics(Ball* ball, void* _disp);
 bool ballContact(Ball* ball, void* _p);
