@@ -10,9 +10,9 @@
 
 struct SaveState {
     std::string level_path;
-    int nb_clicks;
-    int nb_success;
-    int score;
+    int nb_clicks = 0;
+    int nb_success = 0;
+    int score = 0;
 };
 
 SaveState loadState(std::string);

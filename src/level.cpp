@@ -34,8 +34,7 @@ SaveState loadState(std::string level_name) {
     }
     catch(const std::exception& e) {
         return SaveState {
-            string(level_name),
-            0, 0, 0
+            string(level_name)
         };
     }
 }

@@ -6,6 +6,15 @@
 #include <iostream>
 using namespace std;
 
+SDL_Color fromHex(Uint32 color) {
+    return SDL_Color {
+        .r = (Uint8)(color >>  0),
+        .g = (Uint8)(color >>  8),
+        .b = (Uint8)(color >> 16),
+        .a = (Uint8)(color >> 24),
+    };
+}
+
 Displayator::Displayator(int w, int h, float s) {
     SDL_assert(SDL_Init(SDL_INIT_EVERYTHING) == 0);
     this->width = w;
@@ -73,12 +82,7 @@ void Displayator::rect(int x, int y, int w, int h, Uint32 color, bool filled) {
         W = w * this->scale,
         H = h * this->scale;
     if(filled) {
-        SDL_Color clr = {
-            .r = (Uint32)(color >>  0),
-            .g = (Uint32)(color >>  8),
-            .b = (Uint32)(color >> 16),
-            .a = (Uint32)(color >> 24),
-        };
+        SDL_Color clr = fromHex(color);
         SDL_SetRenderDrawColor(this->renderer, clr.r, clr.g, clr.b, clr.a);
         SDL_Rect rect { X, Y, W, H };
         SDL_RenderFillRect(this->renderer, &rect);
@@ -89,12 +93,7 @@ void Displayator::rect(int x, int y, int w, int h, Uint32 color, bool filled) {
 
 void Displayator::text(const char* text, int x, int y, Uint32 color, int size) {
     TTF_SetFontSize(this->font, size * this->scale);
-    SDL_Color clr = {
-        .r = (Uint32)(color >>  0),
-        .g = (Uint32)(color >>  8),
-        .b = (Uint32)(color >> 16),
-        .a = (Uint32)(color >> 24),
-    };
+    SDL_Color clr = fromHex(color);
     SDL_Surface* text_surface = TTF_RenderText_Blended(this->font, text, clr);
     this->image(text_surface, x, y);
     SDL_FreeSurface(text_surface);
@@ -103,7 +102,8 @@ void Displayator::text(const char* text, int x, int y, Uint32 color, int size) {
 void Displayator::image(SDL_Surface* img, int x, int y) {
     SDL_Texture* render = SDL_CreateTextureFromSurface(this->renderer, img);
     SDL_Rect position = {
-        .x = x * this->scale, .y = y * this->scale,
+        .x = (int)(x * this->scale),
+        .y = (int)(y * this->scale),
         .w = img->w, .h = img->h
     };
     SDL_RenderCopy(this->renderer, render, NULL, &position);
@@ -112,8 +112,10 @@ void Displayator::image(SDL_Surface* img, int x, int y) {
 void Displayator::image(Image* img, int x, int y) {
     SDL_Texture* render = SDL_CreateTextureFromSurface(this->renderer, img->image);
     SDL_Rect position = {
-        .x = x * this->scale, .y = y * this->scale,
-        .w = img->width * this->scale, .h = img->height * this->scale
+        .x = (int)(x * this->scale),
+        .y = (int)(y * this->scale),
+        .w = (int)(img->width * this->scale),
+        .h = (int)(img->height * this->scale)
     };
     SDL_RenderCopy(this->renderer, render, NULL, &position);
     SDL_DestroyTexture(render);
