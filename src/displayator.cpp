@@ -135,14 +135,12 @@ void Displayator::getMouse(MouseData* mouse) {
 
 void Displayator::event(bool* cont, MouseData* mouse) {
     SDL_Event event_handler;
-    SDL_PollEvent(&event_handler);
-    switch (event_handler.type){
-    case SDL_QUIT:
-        *cont = false;
-        break;
-    default:
-        SDL_PumpEvents();
-        break;
+    while(SDL_PollEvent(&event_handler)) {
+        switch (event_handler.type){
+        case SDL_QUIT:
+            *cont = false;
+            break;
+        }
     }
     this->getMouse(mouse);
 }
