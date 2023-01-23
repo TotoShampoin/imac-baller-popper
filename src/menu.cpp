@@ -14,6 +14,8 @@ Choice menu(Displayator* D) {
     MouseData mouse;
     bool cont;
     string name, chosen;
+    
+    Image* logo = D->loadImage("assets/logo.png");
 
     readLevels(&levels, &nb_levels);
 
@@ -23,9 +25,10 @@ Choice menu(Displayator* D) {
         if(!cont) return Choice { false };
 
         D->clear();
+        D->image(logo, 120, 0);
         for(int i = 0; i < 8; i++) {
             if(i + page >= nb_levels) {
-            D->text("no entry", 24, LEVEL_LIST_POSITION + i * 24, 0xFF000055, 16);
+            D->text("no entry", 48, LEVEL_LIST_POSITION + i * 24, 0xFF000055, 16);
                 continue;
             }
             name = levels[i + page];
@@ -36,15 +39,15 @@ Choice menu(Displayator* D) {
                 mouse.position.y >= LEVEL_LIST_POSITION + (i  ) * 24 &&
                 mouse.position.y <  LEVEL_LIST_POSITION + (i+1) * 24
             ) {
-                D->rect(0, LEVEL_LIST_POSITION + i * 24, 480, 24, 0xFF550000);
+                D->rect(0, LEVEL_LIST_POSITION + i * 24, 480, 24, 0xFF550055);
                 if(mouse.click) {
                     cont = false;
                     chosen = levels[i + page];
-                    D->rect(0, LEVEL_LIST_POSITION + i * 24, 480, 24, 0xFF555500);
+                    D->rect(0, LEVEL_LIST_POSITION + i * 24, 480, 24, 0xFF5500AA);
                 }
             }
             
-            D->text(name.c_str(), 24, LEVEL_LIST_POSITION + i * 24, 0xFFFFFFFF, 16);
+            D->text(name.c_str(), 48, LEVEL_LIST_POSITION + i * 24, 0xFFFFFFFF, 16);
         }
         D->refresh();
     }
