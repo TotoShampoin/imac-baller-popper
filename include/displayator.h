@@ -16,6 +16,12 @@ struct MouseData {
     bool is_down = false;
 };
 
+struct Image {
+    SDL_Surface* image;
+    int width, height;
+    int scale;
+};
+
 struct Displayator {
     SDL_Window* window;
     SDL_Renderer* renderer;
@@ -38,9 +44,12 @@ struct Displayator {
     void text(const char* text, int x, int y, Uint32 color = 0xFFFFFFFF, int size = DEFAULT_FONT_SIZE);
 
     void image(SDL_Surface* img, int x, int y);
+    void image(Image* img, int x, int y);
 
     void getMouse(MouseData*);
     void event(bool*, MouseData*);
+
+    Image* loadImage(const char* path);
 };
 
 #endif

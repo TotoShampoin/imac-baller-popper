@@ -1,5 +1,10 @@
 #include "displayator.h"
+#include "string_manip.h"
 #include <SDL2/SDL_assert.h>
+
+#include <filesystem>
+#include <iostream>
+using namespace std;
 
 Displayator::Displayator(int w, int h, float s) {
     SDL_assert(SDL_Init(SDL_INIT_EVERYTHING) == 0);
@@ -104,6 +109,15 @@ void Displayator::image(SDL_Surface* img, int x, int y) {
     SDL_RenderCopy(this->renderer, render, NULL, &position);
     SDL_DestroyTexture(render);
 }
+void Displayator::image(Image* img, int x, int y) {
+    SDL_Texture* render = SDL_CreateTextureFromSurface(this->renderer, img->image);
+    SDL_Rect position = {
+        .x = x * this->scale, .y = y * this->scale,
+        .w = img->width * this->scale, .h = img->height * this->scale
+    };
+    SDL_RenderCopy(this->renderer, render, NULL, &position);
+    SDL_DestroyTexture(render);
+}
 
 void Displayator::getMouse(MouseData* mouse) {
     int mx, my, mc;
@@ -131,4 +145,29 @@ void Displayator::event(bool* cont, MouseData* mouse) {
         break;
     }
     this->getMouse(mouse);
+}
+
+Image* Displayator::loadImage(const char* path) {
+    char *name, *ext;
+    splitExtention(path, &name, &ext);
+    std::string x3_str = std::string(name) + "@3x." + ext;
+    std::string x2_str = std::string(name) + "@2x." + ext;
+    const char* x3 = x3_str.c_str();
+    const char* x2 = x2_str.c_str();
+    if(this->scale > 2 && std::filesystem::exists(x3)) {
+        SDL_Surface* img = IMG_Load(x3);
+        return new Image {
+            img, img->w / 3, img->h / 3, 3
+        };
+    }
+    if(this->scale > 1 && std::filesystem::exists(x2)) {
+        SDL_Surface* img = IMG_Load(x2);
+        return new Image {
+            img, img->w / 2, img->h / 2, 2
+        };
+    }
+    SDL_Surface* img = IMG_Load(path);
+    return new Image {
+        img, img->w, img->h, 1
+    };
 }
