@@ -79,10 +79,10 @@ int main(int argc, const char* argv[]) {
                 break;
             }
         }
-        SDL_Delay(1000);
         delete level;
-
         if(!keep_open) break;
+        
+        SDL_Delay(1000);
 
         string pop_rate = (to_string(100 * save_state.nb_success / save_state.nb_clicks)+"%");
         string score = to_string(save_state.score);
