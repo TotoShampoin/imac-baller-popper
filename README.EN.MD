@@ -1,4 +1,6 @@
-# Projet IMAC 2022: Baller Popper
+# Project IMAC 2022
+
+![Baller Popper](./assets/logo%402x.png)
 
 [Edition française](./README.MD)
 
