@@ -74,6 +74,8 @@ int main(int argc, const char* argv[]) {
             disp->text(to_string(save_state.score).c_str(), 16, 16);
             disp->refresh();
 
+            SDL_Delay(1000/60);
+
             if(level->balls->length <= 0) {
                 saveState(&save_state);
                 break;
