@@ -56,12 +56,6 @@ bool Vec2::operator==(Vec2& other) {
             this->y == other.y;
 }
 
-Vec2 Vec2::cmpProd(Vec2& other) {
-    return Vec2 {
-        .x = this->x * other.x - this->y * other.y,
-        .y = this->x * other.y + this->y * other.x,
-    };
-}
 float Vec2::dotProd(Vec2& other) {
     return this->x * other.x + this->y * other.y;
 }
@@ -80,11 +74,4 @@ float Vec2::angle() {
 
 Vec2 Vec2::norm() {
     return *this / this->magnitude();
-}
-
-Vec2 Vec2::fromAngle(float angle) {
-    return Vec2 {
-        .x = cosf(angle),
-        .y = sinf(angle),
-    };
 }

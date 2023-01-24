@@ -130,8 +130,6 @@ void ballGraphics(Ball* ball, void* _disp) {
         0x55FFFFFF,
         false
     );
-    if(ball->marked)
-        disp->circle(ball->position.x, ball->position.y, 4, 0xFFFFFFFF);
 }
 
 bool ballContact(Ball* ball, void* _p) {

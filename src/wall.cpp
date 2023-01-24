@@ -5,13 +5,6 @@ Vec2 Wall::getDirection() {
     return pB - pA;
 }
 
-// bool Wall::detectCollision(Ball* B) {
-//     Vec2& pO = B->position;
-//     float distance = abs((pB.x - pA.x)*(pA.y - pO.y) - (pA.x - pO.x)*(pB.y - pA.y)) / sqrtf((pB - pA).magnitude());
-//     B->marked = (distance < B->radius);
-//     return distance < B->radius;
-// }
-
 bool Wall::detectLineCollision(Ball* B) {
     Vec2 u = this->getDirection();
     Vec2 AC = B->position - pA;
@@ -50,13 +43,6 @@ Vec2 Wall::normal(Vec2& pC) {
     float norme = N.magnitude();
     return N / norme;
 }
-
-// void Wall::bounce(Ball* B) {
-//     Vec2 dir = this->getDirection();
-//     float angle_target = dir.angle() - B->speed.angle();
-//     Vec2 new_dir = Vec2::fromAngle(angle_target) * B->speed.magnitude();
-//     B->speed = dir.norm().cmpProd(new_dir);
-// }
 
 void Wall::bounce(Ball* B) {
     Vec2 N = this->normal(B->position);
