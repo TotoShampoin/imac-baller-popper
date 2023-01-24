@@ -28,7 +28,7 @@ Displayator::Displayator(int w, int h, float s) {
     );
     SDL_assert(this->window);
     this->renderer = SDL_CreateRenderer(this->window, -1, 
-        SDL_RENDERER_PRESENTVSYNC |
+        // SDL_RENDERER_PRESENTVSYNC |
         SDL_RENDERER_ACCELERATED
     );
     SDL_assert(this->renderer);
