@@ -1,6 +1,6 @@
 # Project IMAC 2022: Baller Popper
 
-[![a](https://img.youtube.com/vi/iMXzQP_QsLo/maxresdefault.jpg)](https://youtu.be/iMXzQP_QsLo)
+[![Watch video](https://img.youtube.com/vi/iMXzQP_QsLo/maxresdefault.jpg)](https://www.youtube.com/watch?v=iMXzQP_QsLo)
 
 [Edition française](./README.MD)
 
