@@ -64,6 +64,10 @@ struct Displayator {
     void getMouse(MouseData*);
     void event(bool*, MouseData*);
 
+    /**
+     * Supposons que l'on charge logo.png et que le facteur d'échelle est de 2:
+     * Alors cette fonction cherche l'existence d'un logo@2x.png au préallable, afin d'utiliser une image de meilleure qualité.
+     */
     Image* loadImage(const char* path);
 };
 
