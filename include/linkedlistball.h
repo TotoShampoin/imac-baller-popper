@@ -2,6 +2,11 @@
 #define __LINKEDLISTBALL_H__
 #include "ball.h"
 
+/**
+ * Une classe de noeud pour les listes chaînées de balles.
+ * Les comportements de ses méthodes sont décrites dans la classe des listes chaînées.
+ * Les méthodes ici sont statiques afin d'éviter toute prise de tête avec le this.
+ */
 struct LLBall {
     Ball* value;
     LLBall* next = nullptr;
@@ -16,7 +21,7 @@ static int length(LLBall*);
 };
 
 /**
- * @brief A linked list of balls (pointers).
+ * Une liste chaînée de balles (via des pointeurs).
  */
 struct LinkedListBall {
     LLBall* head = nullptr;
@@ -25,26 +30,27 @@ struct LinkedListBall {
     ~LinkedListBall();
 
     /**
-     * @brief Adds element to the linked list.
+     * Crée un noeud et le place en tête de la liste.
      */
     void add(Ball* element);
 
     /**
-     * @brief Extracts the first element from the linked list and returns it.
+     * Extrait le premier noeud de la liste, et renvoit sa valeur (la balle).
      */
     Ball* shift();
 
     /**
-     * @brief Tests all elements with fallback, extracts all elements that 
-     * returned false, and returns them as a new linked list.
+     * Effectue un test sur chaque noeud via la fonction fallback, 
+     * extrait tout ceux qui renvoient false, et les renvoit via une nouvelle liste chaînée.
      */
     LinkedListBall* filterOut(bool fallback(Ball*, void*), void* params = nullptr);
 
     /**
-     * @brief Executes fallback with all elements, in order.
+     * Exécute la fonction fallback sur toutes les balles de la liste.
      */
     void forEach(void fallback(Ball*, void*), void* params = nullptr);
 };
+
 typedef LinkedListBall BallCollection;
 
 #endif

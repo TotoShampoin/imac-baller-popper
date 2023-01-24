@@ -4,6 +4,10 @@
 #include "vector.h"
 #include "ball.h"
 
+/**
+ * Une classe représentant un mur, en jeu.
+ * Un mur connait ses points aux extrémitées.
+ */
 struct Wall {
     Vec2 pA, pB;
 
@@ -15,9 +19,17 @@ struct Wall {
     Vec2 normal(Vec2&);
     void bounce(Ball*);
 
+    /**
+     * Applique les algorithmes de collision et de rebondissement
+     * de la balle sur le mur en une seule fonction.
+     */
     void bounceMechanics(Ball*);
 };
 
+/**
+ * Une classe représentant une table de murs.
+ * Aucune logique de variation de la taille n'est appliquée ici.
+ */
 struct WallCollection {
     Wall* walls;
     int length;
@@ -26,7 +38,14 @@ struct WallCollection {
 
     Wall& operator[](int);
 
+    /**
+     * Exécute la fonction fallback sur tous les murs de la table.
+     */
     void forEach(void(Wall*, void*), void* = nullptr);
+    /**
+     * Applique les algorithmes de collision et de rebondissement
+     * de la balle sur tous les murs.
+     */
     void bounceMechanics(Ball*);
 };
 

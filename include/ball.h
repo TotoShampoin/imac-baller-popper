@@ -9,18 +9,22 @@
 
 #define MAX_SPEED 2
 
+/**
+ * Une classe représentant une balle, en jeu.
+ * Une balle connait sa position, sa vitesse, son rayon et sa couleur.
+ */
 struct Ball {
-    Vec2 position, speed;
+    Vec2 position;
+    Vec2 speed;
     int radius;
     unsigned int color = 0xFFFFFFFF;
-    bool marked = false;
-    bool is_dead = false;
-    int death_animation = 0;
 
     Ball(int screen_width, int screen_height, int color = 0xFFFFFF);
     Ball(Vec2 position, Vec2 speed, int r, int c);
 
+    // Applique la vitesse de la balle pour mettre à jour sa position.
     void update();
+    // Fait rebondir la balle sur le bord de l'écran
     void applyCollisionsAndBounce(int bound_width, int bound_height);
 };
 

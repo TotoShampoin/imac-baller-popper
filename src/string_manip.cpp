@@ -37,5 +37,6 @@ void splitExtention(const char* path, char** name, char** ext) {
         else (*ext)[i] = *tmp;
         i++;
     }
-    (*ext)[i] = '\0';
+    if(to_ext) (*ext)[i] = '\0';
+    else (*ext)[0] = '\0';
 }
