@@ -6,8 +6,6 @@
 #define WIDTH 480
 #define HEIGHT 360
 
-void menu() {}
-
 int main(int argc, const char* argv[]) {
     // Variables
     bool cont, keep_open;
