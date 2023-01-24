@@ -1,5 +1,7 @@
 # Projet IMAC 2022: Baller Popper
 
+[English edition](./README.EN.MD)
+
 ## Sommaire
 
 - [Règles du jeu](#règles-du-jeu)
