@@ -1,5 +1,7 @@
 # Project IMAC 2022: Baller Popper
 
+![video](./.assets/video.mp4)
+
 [Edition française](./README.MD)
 
 ## Summary
