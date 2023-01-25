@@ -6,7 +6,7 @@ RESOURCES=SDL2_gfxPrimitives string_manip displayator vector ball linkedlistball
 
 CFLAGS=-std=c++17 -Wall -Wextra -g
 LFLAGS=-Iinclude
-LFLAGS-SDL=`pkg-config --cflags --libs  sdl2 SDL2_image SDL2_ttf SDL2_mixer`
+LFLAGS-SDL=`pkg-config --cflags --libs  sdl2 SDL2_image SDL2_ttf`
 
 all:
 	mkdir -p bin
