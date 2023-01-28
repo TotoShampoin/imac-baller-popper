@@ -3,7 +3,6 @@
 
 #include "menu.h"
 #include "contants.h"
-#include "level.h"
 #include "displayator.h"
 
 // Pour lancer une partie de jeu

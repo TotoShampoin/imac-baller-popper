@@ -1,7 +1,6 @@
 #ifndef __WALL_H__
 #define __WALL_H__
 
-#include "vector.h"
 #include "ball.h"
 
 /**
