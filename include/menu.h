@@ -17,7 +17,7 @@ struct Choice {
 };
 
 // Lit le dossier assets/levels et met les infos dans des tables.
-void readLevels(string** levels, int** scores, int* nb_levels);
+void readLevels(std::string** levels, int** scores, int* nb_levels);
 
 // Toute la boucle du menu dans cette fonction.
 Choice menu(Displayator* D);

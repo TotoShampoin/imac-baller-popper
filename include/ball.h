@@ -1,7 +1,7 @@
 #ifndef __BALL_H__
 #define __BALL_H__
 
-#include "vector.h"
+#include "vector2.h"
 #include "mymath.h"
 // #include "LinkedListBall.h"
 

@@ -7,7 +7,7 @@ using namespace std;
 
 int main(int argc, const char* argv[]) {
     // Variables
-    bool cont, keep_open;
+    bool keep_open;
     Displayator* disp;
     Choice choice;
 
