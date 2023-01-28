@@ -4,7 +4,7 @@ using namespace std;
 
 bool game(Choice choice, Displayator* disp) {
     // Variables
-    bool cont, keep_open;
+    bool cont;
     Level* level;
     SaveState save_state;
     MouseData mouse;
@@ -22,8 +22,7 @@ bool game(Choice choice, Displayator* disp) {
         // Input
         disp->event(&cont, &mouse);
         if(!cont) {
-            keep_open = false;
-            break;
+            return false;
         }
 
         // Physics
@@ -58,7 +57,6 @@ bool game(Choice choice, Displayator* disp) {
         }
     }
     delete level;
-    if(!keep_open) return false;
     
     SDL_Delay(1000);
 
@@ -67,8 +65,7 @@ bool game(Choice choice, Displayator* disp) {
     while(true) {
         disp->event(&cont, &mouse);
         if(!cont) {
-            keep_open = false;
-            break;
+            return false;
         }
         if(mouse.click) break;
 
