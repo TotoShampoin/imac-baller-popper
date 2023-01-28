@@ -1,8 +1,5 @@
 #include "ball.h"
 
-#include "mymath.h"
-#include <cmath>
-
 Ball::Ball(int screen_width, int screen_height, int color) {
     float angle = ((float)rand()/0x7FFFFFFF) * M_PI * 2;
     float speed = ((float)rand()/0x7FFFFFFF) * MAX_SPEED;

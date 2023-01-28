@@ -1,9 +1,13 @@
+#ifndef __LEVEL_H__
+#define __LEVEL_H__
+
 #include <fstream>
 #include <iostream>
 #include <string>
 
 #include "linkedlistball.h"
 #include "wall.h"
+#include "string_manip.h"
 
 #define DIR_LEVEL "assets/levels/"
 #define DIR_SAVE "assets/saves/"
@@ -33,3 +37,5 @@ struct Level {
     Level(const char* path);
     ~Level();
 };
+
+#endif

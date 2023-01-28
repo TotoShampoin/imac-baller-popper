@@ -1,5 +1,4 @@
 #include "level.h"
-#include "string_manip.h"
 #include <SDL2/SDL.h>
 using namespace std;
 

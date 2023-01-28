@@ -2,6 +2,7 @@
 #define __BALL_H__
 
 #include "vector.h"
+#include "mymath.h"
 // #include "LinkedListBall.h"
 
 #define MIN_RADIUS 16

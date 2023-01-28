@@ -7,6 +7,7 @@
 #include <SDL2/SDL_mixer.h>
 #include "SDL2_gfxPrimitives.h"
 #include "vector.h"
+#include "string_manip.h"
 
 #define DEFAULT_FONT_SIZE 32
 

@@ -1,5 +1,4 @@
 #include "displayator.h"
-#include "string_manip.h"
 #include <SDL2/SDL_assert.h>
 
 #include <filesystem>

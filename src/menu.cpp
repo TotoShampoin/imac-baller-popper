@@ -1,12 +1,8 @@
 #include "menu.h"
-#include "level.h"
-#include "string_manip.h"
 #include <iostream>
 #include <dirent.h>
 
 using namespace std;
-
-void readLevels(string** levels, int** scores, int* nb_levels);
 
 Choice menu(Displayator* D) {
     string* levels; int* scores;
