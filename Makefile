@@ -2,7 +2,7 @@ EXEC=bin/ballers
 
 CC=g++
 
-RESOURCES=SDL2_gfxPrimitives string_manip displayator vector ball linkedlistball wall level menu game main
+RESOURCES=SDL2_gfxPrimitives string_manip vector2 displayator ball linkedlistball wall level menu game main
 
 CFLAGS=-std=c++17 -Wall -Wextra -g
 LFLAGS=-Iinclude
